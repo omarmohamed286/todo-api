@@ -48,7 +48,7 @@ userSchema.methods.generateToken = function () {
     const currentUser = this;
     return signJwt({
         id: currentUser.id
-    }, jwtSecret, { expiresIn: '5m' })
+    }, jwtSecret)
 
 }
 

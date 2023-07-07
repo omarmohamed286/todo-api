@@ -9,12 +9,19 @@ const registerValidator = [
 ]
 
 const loginValidator = [
-        check('username').notEmpty().withMessage('username cannot be null'),
-        check('password').notEmpty().withMessage('password cannot be null'),
-        validatorMW
+    check('username').notEmpty().withMessage('username cannot be null'),
+    check('password').notEmpty().withMessage('password cannot be null'),
+    validatorMW
 ]
+
+const todoValidator = [
+    check('newTitle').notEmpty().withMessage('newTitle cannot be null'),
+    validatorMW
+]
+
 
 module.exports = {
     registerValidator,
-    loginValidator
+    loginValidator,
+    todoValidator
 }
