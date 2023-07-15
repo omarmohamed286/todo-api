@@ -38,6 +38,9 @@ userSchema.pre('save', async function () {
     }
 })
 
+userSchema.statics.hashPassword = async function (plainPassword) {
+    return await bcrypt.hash(plainPassword, saltRounds)
+}
 
 userSchema.methods.checkPassword = function (plainPassword) {
     const currentUser = this;
@@ -49,7 +52,6 @@ userSchema.methods.generateToken = function () {
     return signJwt({
         id: currentUser.id
     }, jwtSecret)
-
 }
 
 userSchema.statics.getUserByToken = async function (token) {

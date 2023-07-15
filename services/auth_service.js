@@ -2,7 +2,7 @@ const User = require('../models/user_model')
 const CustomError = require('../helpers/customError')
 
 
-const registerService = async (req, res, next) => {
+const registerService = async (req, res) => {
     const { username, password, firstName } = req.body;
     const user = await User.findOne({ username: username })
     if (user) throw new CustomError(`user with username: ${user.username} is registered already`, 401)
@@ -28,6 +28,9 @@ const loginService = async (req, res) => {
     if (isMatch) {
         const token = await user.generateToken()
         res.json({ message: 'loged in succefully', username, token })
+    }
+    else {
+        res.json({ message: 'wrong password' })
     }
 }
 
