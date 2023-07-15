@@ -1,9 +1,9 @@
 const User = require('../models/user_model')
 
-
-const getAllUsersService = async (req, res) => {
-    const allUsers = await User.find({}, 'firstName -_id')
-    res.json(allUsers)
+const getUser = async (req, res) => {
+    const token = req.headers.authorization;
+    const user = await User.getUserByToken(token)
+    res.json(user)
 }
 
 const deleteUser = async (req, res) => {
@@ -46,7 +46,7 @@ const updateUser = async (req, res) => {
 }
 
 module.exports = {
-    getAllUsersService,
     deleteUser,
-    updateUser
+    updateUser,
+    getUser
 }

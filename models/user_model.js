@@ -2,6 +2,7 @@ const mongoose = require('mongoose')
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken')
 const util = require('util')
+const _ = require('lodash');
 const CustomError = require('../helpers/customError')
 
 
@@ -29,7 +30,12 @@ const userSchema = new mongoose.Schema({
         min: 3,
         max: 15
     }
-})
+}, {
+    toJSON: {
+        transform: (doc, ret) => _.omit(ret, ['__v', 'password'])
+    }
+}
+)
 
 userSchema.pre('save', async function () {
     const currentUser = this;
